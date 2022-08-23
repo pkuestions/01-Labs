@@ -2,7 +2,6 @@ use bank;
 
 ### Q1
 ### Get the id values of the first 5 clients FROM district_id with a value equals to 1.
-SELECT * FROM client;
 SELECT client_id 
 FROM client 
 WHERE district_id = 1 
@@ -15,6 +14,7 @@ FROM client
 WHERE district_id = 72 
 ORDER BY client_id 
 DESC LIMIT 1;
+# SELECT max(client_id) FROM client WHERE district_id = 72;
 
 ### Q3
 ### Get the 3 lowest amounts in the loan table.
@@ -25,7 +25,7 @@ LIMIT 3;
 
 ### Q4
 ### What are the possible values for status, ordered alphabetically in ascending order in the loan table?
-SELECT distinct(status) 
+SELECT DISTINCT(status) 
 FROM loan 
 ORDER BY status;
 
@@ -45,23 +45,27 @@ LIMIT 5;
 
 ### Q7
 ### What are the top 5 account_ids with the lowest loan amount that have a loan duration of 60 in the loan table?
-SELECT * FROM loan 
+SELECT account_id 
+FROM loan 
 WHERE duration = 60
 ORDER BY amount
 LIMIT 5;
 
 ### Q8
 ### What are the unique values of k_symbol in the order table?
-SELECT distinct (k_symbol) FROM `order`;
+SELECT DISTINCT (k_symbol) 
+FROM `order`;
 
 ### Q9
 ### In the order table, what are the order_ids of the client with the account_id 34?
-SELECT order_id FROM `order`
+SELECT order_id 
+FROM `order`
 WHERE account_id = 34;
 
 ### Q10
 ### In the order table, which account_ids were responsible for orders between order_id 29540 and order_id 29560 (inclusive)?
-SELECT distinct(account_id) FROM `order`
+SELECT DISTINCT(account_id) 
+FROM `order`
 WHERE order_id BETWEEN 29540 AND 29560;
 
 ### Q11
@@ -72,6 +76,7 @@ WHERE account_to = 30067122;
 ### Q12
 ### In the trans table, show the trans_id, date, type and amount of the 10 first transactions 
 ### from account_id 793 in chronological order, from newest to oldest.
+SELECT * FROM trans;
 SELECT trans_id, `date`, `type`, amount FROM trans
 WHERE account_id = 793
 ORDER BY `date` DESC
@@ -80,7 +85,6 @@ LIMIT 10;
 ### Q13
 ### In the client table, of all districts with a district_id lower than 10, how many clients are from each district_id? 
 ### Show the results sorted by the district_id in ascending order.
-SELECT * FROM client;
 SELECT district_id, count(client_id) FROM client
 WHERE district_id < 10
 GROUP BY district_id
@@ -116,7 +120,8 @@ ORDER BY `date`, duration;
 ### Q18
 ### In the trans table, for account_id 396, sum the amount of transactions for each type (VYDAJ = Outgoing, PRIJEM = Incoming). 
 ### Your output should have the account_id, the type and the sum of amount, named as total_amount. Sort alphabetically by type.
-SELECT account_id, type, sum(amount) AS total_amount FROM trans
+SELECT account_id, type, sum(amount) AS total_amount 
+FROM trans
 WHERE account_id = 396
 GROUP BY type;
 
