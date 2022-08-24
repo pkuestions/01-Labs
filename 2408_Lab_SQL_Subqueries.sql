@@ -72,25 +72,26 @@ GROUP BY customer_id
 ORDER BY sum(amount) DESC LIMIT 1)));
 
 ### 8. Customers who spent more than the average payments(this refers to the average of all amount spent per each customer).
-SELECT first_name, last_name
+SELECT first_name, last_name									#--> give customer name of customer_id if customer_id in list of customer_ids below
 FROM customer
 WHERE customer_id IN 
 (
-	SELECT customer_id FROM 
+	SELECT customer_id FROM 									#--> give list of customer_ids where total amount spent by customer > average of total amount spent by customer
 	(
-		SELECT customer_id, sum(amount) AS s FROM payment
+		SELECT customer_id, sum(amount) AS s FROM payment		# --> give total amount spent by customer (OUTER)
 		GROUP BY customer_id
 	) AS sub
-		WHERE s > 
+		WHERE s > 												#--> filter total spent amount by customer (OUTER) bigger than average of total amount spent by customer (from INNER)
         (
-			SELECT avg(summe) FROM 
+			SELECT avg(summe) FROM 								#--> give average of total amount spent by customer
             (
-				SELECT sum(amount) AS summe FROM payment
+				SELECT sum(amount) AS summe FROM payment		# --> give total amount spent by customer (INNER)
 				GROUP BY customer_id
 			) AS sub2
 		)
 );
 
+/*
 SELECT avg(summe) FROM (
 SELECT sum(amount) AS summe FROM payment
 GROUP BY customer_id
@@ -99,3 +100,4 @@ GROUP BY customer_id
 SELECT customer_id, sum(amount) FROM payment
 GROUP BY customer_id
 ORDER BY sum(amount) DESC;
+*/
