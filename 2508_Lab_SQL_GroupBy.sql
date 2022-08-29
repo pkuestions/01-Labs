@@ -31,11 +31,13 @@ FROM film
 GROUP BY rating;
 
 ### 5. What is the mean length of the film for each rating type. Round off the average lengths to two decimal places 
+
 SELECT DISTINCT(rating), round(avg(length),2) AS avg_length 
 FROM film
 GROUP BY rating;
 
 ### 6. Which kind of movies (rating) have a mean duration of more than two hours?
+
 SELECT DISTINCT(rating)
 FROM film
 GROUP BY rating
